@@ -54,32 +54,32 @@ resource "aws_db_subnet_group" "microservices-subnet-group" {
 # <<<
 
 # >>> LAMBDA SUBNETS
-resource "aws_subnet" "microservices-lambda-subnet-1" {
-  vpc_id            = aws_vpc.microservices-vpc.id
-  cidr_block        = "10.0.3.0/24"
-  availability_zone = "us-east-2a"
-  tags = {
-    Name = "microservices-lambda-subnet-1"
-  }
-}
+# resource "aws_subnet" "microservices-lambda-subnet-1" {
+#   vpc_id            = aws_vpc.microservices-vpc.id
+#   cidr_block        = "10.0.3.0/24"
+#   availability_zone = "us-east-2a"
+#   tags = {
+#     Name = "microservices-lambda-subnet-1"
+#   }
+# }
 
-resource "aws_subnet" "microservices-lambda-subnet-2" {
-  vpc_id            = aws_vpc.microservices-vpc.id
-  cidr_block        = "10.0.4.0/24"
-  availability_zone = "us-east-2b"
-  tags = {
-    Name = "microservices-lambda-subnet-2"
-  }
-}
+# resource "aws_subnet" "microservices-lambda-subnet-2" {
+#   vpc_id            = aws_vpc.microservices-vpc.id
+#   cidr_block        = "10.0.4.0/24"
+#   availability_zone = "us-east-2b"
+#   tags = {
+#     Name = "microservices-lambda-subnet-2"
+#   }
+# }
 
-resource "aws_subnet" "microservices-lambda-subnet-3" {
-  vpc_id            = aws_vpc.microservices-vpc.id
-  cidr_block        = "10.0.5.0/24"
-  availability_zone = "us-east-2c"
-  tags = {
-    Name = "microservices-lambda-subnet-3"
-  }
-}
+# resource "aws_subnet" "microservices-lambda-subnet-3" {
+#   vpc_id            = aws_vpc.microservices-vpc.id
+#   cidr_block        = "10.0.5.0/24"
+#   availability_zone = "us-east-2c"
+#   tags = {
+#     Name = "microservices-lambda-subnet-3"
+#   }
+# }
 # <<<
 
 # >>> VPC SECURITY GROUP
@@ -156,17 +156,17 @@ resource "aws_network_interface" "microservices-network-interface-1" {
 # <<<
 
 # >>> VPC NAT GATEWAY
-resource "aws_eip" "microservices-eip-1" {
-  vpc = true
-}
+# resource "aws_eip" "microservices-eip-1" {
+#   vpc = true
+# }
 
-resource "aws_nat_gateway" "microservices-nat-gateway" {
-  allocation_id = aws_eip.microservices-eip-1.id
-  subnet_id     = aws_subnet.microservices-subnet-1.id
-  tags = {
-    Name = "microservices-nat-gateway-1"
-  }
-}
+# resource "aws_nat_gateway" "microservices-nat-gateway" {
+#   allocation_id = aws_eip.microservices-eip-1.id
+#   subnet_id     = aws_subnet.microservices-subnet-1.id
+#   tags = {
+#     Name = "microservices-nat-gateway-1"
+#   }
+# }
 # <<<
 
 
@@ -206,31 +206,31 @@ resource "aws_main_route_table_association" "microservices-main-route-table-asso
 # <<<
 
 # >>> ROUTE TABLE FOR LAMBDA WITH OUTBOUND INTERNET ACCESS
-resource "aws_route_table" "microservices-lambda-route-table" {
-  vpc_id = aws_vpc.microservices-vpc.id
+# resource "aws_route_table" "microservices-lambda-route-table" {
+#   vpc_id = aws_vpc.microservices-vpc.id
 
-  route {
-    cidr_block     = "0.0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.microservices-nat-gateway.id
-  }
+#   route {
+#     cidr_block     = "0.0.0.0/0"
+#     nat_gateway_id = aws_nat_gateway.microservices-nat-gateway.id
+#   }
 
-  tags = {
-    Name = "microservices-lambda-route-table"
-  }
-}
+#   tags = {
+#     Name = "microservices-lambda-route-table"
+#   }
+# }
 
-resource "aws_route_table_association" "microservices-lambda-route-table-assoc-1" {
-  subnet_id      = aws_subnet.microservices-lambda-subnet-1.id
-  route_table_id = aws_route_table.microservices-lambda-route-table.id
-}
+# resource "aws_route_table_association" "microservices-lambda-route-table-assoc-1" {
+#   subnet_id      = aws_subnet.microservices-lambda-subnet-1.id
+#   route_table_id = aws_route_table.microservices-lambda-route-table.id
+# }
 
-resource "aws_route_table_association" "microservices-lambda-route-table-assoc-2" {
-  subnet_id      = aws_subnet.microservices-lambda-subnet-2.id
-  route_table_id = aws_route_table.microservices-lambda-route-table.id
-}
+# resource "aws_route_table_association" "microservices-lambda-route-table-assoc-2" {
+#   subnet_id      = aws_subnet.microservices-lambda-subnet-2.id
+#   route_table_id = aws_route_table.microservices-lambda-route-table.id
+# }
 
-resource "aws_route_table_association" "microservices-lambda-route-table-assoc-3" {
-  subnet_id      = aws_subnet.microservices-lambda-subnet-3.id
-  route_table_id = aws_route_table.microservices-lambda-route-table.id
-}
+# resource "aws_route_table_association" "microservices-lambda-route-table-assoc-3" {
+#   subnet_id      = aws_subnet.microservices-lambda-subnet-3.id
+#   route_table_id = aws_route_table.microservices-lambda-route-table.id
+# }
 # <<<
